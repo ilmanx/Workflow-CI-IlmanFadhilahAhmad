@@ -31,6 +31,7 @@ jobs:
       run: |
         cd MLProject
         mlflow run . --env-manager=local
+        --experiment-name="CI_Breast_Cancer_Training" \
 
     # -----------------------------
     # BUILD DOCKER IMAGE (ADVANCED)
