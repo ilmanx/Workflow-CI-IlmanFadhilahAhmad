@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -48,12 +48,6 @@ jobs:
     - name: Push Docker Image
       run: |
         docker push ilmanf17/my-app-ilman
-
-    # DOWNLOAD ARTIFACT
-    - name: Download Model Artifacts
-      run: |
-        cd MLProject
-        mlflow artifacts download --artifact-uri runs:/latest/model --dst-path ./model
 
     # SAVE ke GITHUB
     - name: Commit and Push Model to GitHub
