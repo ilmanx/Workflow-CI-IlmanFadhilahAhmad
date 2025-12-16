@@ -14,7 +14,6 @@ y_train = train_df.iloc[:, -1]
 X_test = test_df.iloc[:, :-1]
 y_test = test_df.iloc[:, -1]
 
-# ATTACH KE RUN DARI MLFLOW PROJECT
 run_id = os.environ.get("MLFLOW_RUN_ID")
 
 with mlflow.start_run(run_id=run_id):
@@ -33,11 +32,10 @@ with mlflow.start_run(run_id=run_id):
     mlflow.log_param("C", 1.0)
     mlflow.log_metric("accuracy", acc)
 
-    # ✅ GANTI BAGIAN INI
     mlflow.sklearn.log_model(
         sk_model=model,
         artifact_path="model",
-        input_example=X_train.iloc[:5]   # <-- TAMBAHKAN DI SINI
+        input_example=X_train.iloc[:5] 
     )
 
     print(f"Training selesai | Accuracy: {acc:.4f}")

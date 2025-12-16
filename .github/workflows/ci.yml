@@ -51,9 +51,9 @@ jobs:
       run: |
         docker push ilmanf17/my-app-ilman
 
-    # SAVE ke artifak
+    # SAVE artifak
     - name: Upload MLflow Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: mlflow-artifacts
         path: MLProject/mlruns
