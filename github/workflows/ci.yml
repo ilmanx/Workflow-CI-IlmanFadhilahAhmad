@@ -69,8 +69,8 @@ jobs:
     # -----------------------------
     - name: Commit and Push Model to GitHub
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+        git config --global user.name "ilmanx"
+        git config --global user.email "ilmanfadhilah0136@gmail.com"
         git add ./model
         git commit -m "Save model artifact"
         git push origin main
