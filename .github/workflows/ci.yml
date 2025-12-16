@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install mlflow==2.19.0
+        pip install mlflow==2.19.0 pandas numpy scikit-learn
 
     # -----------------------------
     # TRAIN MODEL VIA MLFLOW PROJECT
@@ -40,7 +40,7 @@ jobs:
         cd MLProject
         mlflow models build-docker \
           -m runs:/latest/model \
-          -n ilmanx/breast-cancer
+          -n ilmanf17/my-app-ilman
 
     # -----------------------------
     # LOGIN & PUSH TO DOCKER HUB
@@ -53,7 +53,7 @@ jobs:
 
     - name: Push Docker Image
       run: |
-        docker push ilmanx/breast-cancer-ml
+        docker push ilmanf17/my-app-ilman
 
     # -----------------------------
     # DOWNLOAD MODEL ARTIFACT

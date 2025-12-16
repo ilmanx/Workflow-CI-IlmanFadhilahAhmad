@@ -7,8 +7,8 @@ from sklearn.metrics import accuracy_score
 # ----------------------------------------
 # Load data
 # ----------------------------------------
-train_df = pd.read_csv("../preprocessing/train_data.csv")
-test_df = pd.read_csv("../preprocessing/test_data.csv")
+train_df = pd.read_csv("preprocessing/train_data.csv")
+test_df = pd.read_csv("preprocessing/test_data.csv")
 
 X_train = train_df.iloc[:, :-1]
 y_train = train_df.iloc[:, -1]
