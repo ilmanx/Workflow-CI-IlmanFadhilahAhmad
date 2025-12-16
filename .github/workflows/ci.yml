@@ -30,7 +30,7 @@ jobs:
     - name: Run MLflow Project
       run: |
         cd MLProject
-        mlflow run . --no-conda  # Pastikan model berjalan di environment yang sesuai
+        mlflow run .
 
     # -----------------------------
     # BUILD DOCKER IMAGE (ADVANCED)
