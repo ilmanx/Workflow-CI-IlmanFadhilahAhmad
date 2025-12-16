@@ -1,0 +1,53 @@
+name: MLflow CI Advanced
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  train-and-dockerize:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install MLflow
+      run: |
+        pip install mlflow==2.19.0
+
+    # -----------------------------
+    # TRAIN MODEL VIA MLFLOW PROJECT
+    # -----------------------------
+    - name: Run MLflow Project
+      run: |
+        cd MLProject
+        mlflow run .
+
+    # -----------------------------
+    # BUILD DOCKER IMAGE (ADVANCED)
+    # -----------------------------
+    - name: Build Docker Image with MLflow
+      run: |
+        cd MLProject
+        mlflow models build-docker \
+          -m runs:/latest/model \
+          -n ilmanx/breast-cancer-ml
+
+    # -----------------------------
+    # LOGIN & PUSH TO DOCKER HUB
+    # -----------------------------
+    - name: Login Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker Image
+      run: docker push ilmanx/breast-cancer-ml
