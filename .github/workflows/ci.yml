@@ -34,8 +34,10 @@ jobs:
     - name: Build Docker Image with MLflow
       run: |
         cd MLProject
+        MODEL_PATH=$(ls -td mlruns/*/*/artifacts/model | head -1)
+        echo "Using model at: $MODEL_PATH"
         mlflow models build-docker \
-          -m runs:/latest/model \
+          -m "$MODEL_PATH" \
           -n ilmanf17/my-app-ilman
 
     # PUSH DOCKER HUB
