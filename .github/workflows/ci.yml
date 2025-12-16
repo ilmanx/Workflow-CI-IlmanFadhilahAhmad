@@ -58,4 +58,6 @@ jobs:
         git config --global user.email "ilmanfadhilah0136@gmail.com"
         git add MLProject/mlruns
         git commit -m "Save model artifact"
-        git push origin main
+        git push https://$GITHUB_PAT@github.com/ilmanx/Workflow-CI-IlmanFadhilahAhmad.git main
+      env:
+        GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
