@@ -53,11 +53,11 @@ jobs:
 
     # SAVE ke GITHUB
     - name: Commit and Push Model to GitHub
+      env:
+        GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
       run: |
         git config --global user.name "ilmanx"
         git config --global user.email "ilmanfadhilah0136@gmail.com"
         git add MLProject/mlruns
         git commit -m "Save model artifact"
         git push https://$GITHUB_PAT@github.com/ilmanx/Workflow-CI-IlmanFadhilahAhmad.git main
-      env:
-        GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
