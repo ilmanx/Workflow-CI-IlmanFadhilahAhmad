@@ -24,18 +24,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install mlflow==2.19.0 pandas numpy scikit-learn
 
-    # -----------------------------
-    # TRAIN MODEL VIA MLFLOW PROJECT
-    # -----------------------------
+    # TRAIN MODEL
     - name: Run MLflow Project
       run: |
         cd MLProject
-        mlflow run . --env-manager=local
-        --experiment-name="CI_Breast_Cancer_Training" \
+        mlflow run . --env-manager=local --experiment-name="CI_Breast_Cancer_Training"
 
-    # -----------------------------
-    # BUILD DOCKER IMAGE (ADVANCED)
-    # -----------------------------
+    # BUILD DOCKER IMAGE
     - name: Build Docker Image with MLflow
       run: |
         cd MLProject
@@ -43,9 +38,7 @@ jobs:
           -m runs:/latest/model \
           -n ilmanf17/my-app-ilman
 
-    # -----------------------------
-    # LOGIN & PUSH TO DOCKER HUB
-    # -----------------------------
+    # PUSH DOCKER HUB
     - name: Login Docker Hub
       uses: docker/login-action@v3
       with:
@@ -56,17 +49,13 @@ jobs:
       run: |
         docker push ilmanf17/my-app-ilman
 
-    # -----------------------------
-    # DOWNLOAD MODEL ARTIFACT
-    # -----------------------------
+    # DOWNLOAD ARTIFACT
     - name: Download Model Artifacts
       run: |
         cd MLProject
         mlflow artifacts download --artifact-uri runs:/latest/model --dst-path ./model
 
-    # -----------------------------
-    # SAVE ARTIFACT TO GITHUB
-    # -----------------------------
+    # SAVE ke GITHUB
     - name: Commit and Push Model to GitHub
       run: |
         git config --global user.name "ilmanx"
